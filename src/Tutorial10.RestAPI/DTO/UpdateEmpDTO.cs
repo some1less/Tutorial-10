@@ -6,7 +6,7 @@ public class UpdateEmpDTO
 
     public int JobId { get; set; }
 
-    public int ManagerId { get; set; }
+    public int? ManagerId { get; set; }
     
     public DateTime HireDate { get; set; }
 

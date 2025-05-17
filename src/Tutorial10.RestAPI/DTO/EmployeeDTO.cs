@@ -8,7 +8,7 @@ public class EmployeeDTO
 
     public string JobName { get; set; } = null!;
 
-    public string ManagerName { get; set; } = null!;
+    public string? ManagerName { get; set; } = null!;
     public DateTime HireDate { get; set; }
 
     public decimal Salary { get; set; }

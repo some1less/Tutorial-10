@@ -140,7 +140,7 @@ app.MapPut("/api/employees/{id}", async (int id, Tutorial10Context context, Canc
         var emp = context.Employees.
             Include(e => e.Department).
             FirstOrDefault(e => e.Id == id);
-        if (emp == null) throw new KeyNotFoundException($"Employee with id {id} not found");
+        if (emp == null) return Results.StatusCode(404);
         
         emp.Name = empDto.Name;
         emp.Commission = empDto.Commission;
