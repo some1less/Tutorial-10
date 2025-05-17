@@ -109,13 +109,23 @@ app.MapGet("/api/employees/{id}", (int id, CancellationToken cancellationToken, 
     
 });
 
-app.MapPost("/api/employees", async (Tutorial10Context context, CancellationToken cancellationToken, Employee empDto) =>
+app.MapPost("/api/employees", async (Tutorial10Context context, CancellationToken cancellationToken, CreateEmpDTO empDto) =>
 {
     try
     {
-        await context.Employees.AddAsync(empDto, cancellationToken);
+        var emp = new Employee()
+        {
+            Name = empDto.Name,
+            JobId = empDto.JobId,
+            Commission = empDto.Commission,
+            ManagerId = empDto.ManagerId,
+            DepartmentId = empDto.DepartmentId,
+            Salary = empDto.Salary
+        };
+        
+        await context.Employees.AddAsync(emp, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
-        return Results.Created($"/api/employees/{empDto.Id}", empDto);
+        return Results.Created($"/api/employees/{emp.Id}", empDto);
     }
     catch (Exception ex)
     {
