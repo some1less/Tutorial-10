@@ -1,20 +1,20 @@
 namespace Tutorial10.RestAPI.DTO;
 
-public class EmployeeDTO
+public class UpdateEmpDTO
 {
     public int Id { get; set; }
 
     public string Name { get; set; } = null!;
 
-    public string JobName { get; set; } = null!;
+    public int JobId { get; set; }
 
-    public string ManagerName { get; set; } = null!;
+    public int ManagerId { get; set; }
+    
     public DateTime HireDate { get; set; }
 
     public decimal Salary { get; set; }
 
     public decimal? Commission { get; set; }
 
-    public string? DepartmentName { get; set; }
-
+    public int DepartmentId { get; set; }
 }

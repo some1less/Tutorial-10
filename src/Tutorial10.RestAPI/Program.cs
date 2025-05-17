@@ -61,12 +61,12 @@ app.MapGet("/api/employees", (async (Tutorial10Context context, CancellationToke
             {
                 Id = emp.Id,
                 Name = emp.Name,
+                JobName = emp.Job.Name,
                 Commission = emp.Commission,
-                DepartmentId = emp.DepartmentId,
+                ManagerName = emp.Manager.Name,
                 HireDate = emp.HireDate,
                 Salary = emp.Salary,
-                JobId = emp.JobId,
-                ManagerId = emp.ManagerId,
+                DepartmentName = emp.Department.Name,
             });
         }
         
@@ -83,19 +83,21 @@ app.MapGet("/api/employees/{id}", (int id, CancellationToken cancellationToken, 
 {
     try
     {
-        var emp = context.Employees.
-            Include(e => e.Department).
-            FirstOrDefault(e => e.Id == id);
+        var emp = context.Employees
+            .Include(e => e.Department)
+            .Include(e => e.Job)
+            .Include(e => e.Manager)
+            .FirstOrDefault(e => e.Id == id);
         var employeeDto = new EmployeeDTO()
         {
             Id = emp.Id,
             Name = emp.Name,
+            JobName = emp.Job.Name,
             Commission = emp.Commission,
-            DepartmentId = emp.DepartmentId,
+            ManagerName = emp.Manager.Name,
             HireDate = emp.HireDate,
             Salary = emp.Salary,
-            JobId = emp.JobId,
-            ManagerId = emp.ManagerId,
+            DepartmentName = emp.Department.Name,
         };
 
     return Results.Ok(employeeDto);
@@ -120,8 +122,7 @@ app.MapPost("/api/employees", async (Tutorial10Context context, CancellationToke
         return Results.Problem(ex.Message);
     }
 });
-
-app.MapPut("/api/employees/{id}", async (int id, Tutorial10Context context, CancellationToken cancellationToken, EmployeeDTO empDto) =>
+app.MapPut("/api/employees/{id}", async (int id, Tutorial10Context context, CancellationToken cancellationToken, UpdateEmpDTO empDto) =>
 {
     try
     {
