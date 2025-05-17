@@ -2,8 +2,6 @@ namespace Tutorial10.RestAPI.DTO;
 
 public class UpdateEmpDTO
 {
-    public int Id { get; set; }
-
     public string Name { get; set; } = null!;
 
     public int JobId { get; set; }
